@@ -14,6 +14,7 @@ import PInbox from './pages/PInbox';
 import PSentFolder from './pages/PSentFolder';
 import PArchive from './pages/PArchive';
 import PEmail from './pages/PEmail';
+import PCreate from './pages/PCreate';
 
 class App extends Component {
     render() {
@@ -27,6 +28,7 @@ class App extends Component {
                             <Route path="/sent-folder" component={PSentFolder} />
                             <Route path="/archive" component={PArchive} />
                             <Route path="/emails/:email_id" component={PEmail} />
+                            <Route path="/create" component={PCreate} />
                         </Switch>
                     </div>
                     <CCreateBtn />
