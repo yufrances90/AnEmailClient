@@ -12,9 +12,13 @@
 }
 
 .app-searchbox {
-  margin-left: 70vw;
+  margin-left: 50vw;
 }
 
 .search-box {
   color: white !important;
+}
+
+.nav-links {
+  margin-left: 2vw;
 }

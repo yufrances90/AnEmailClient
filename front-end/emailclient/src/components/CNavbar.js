@@ -3,13 +3,11 @@ import React, { Component } from 'react';
 import {
     AppBar,
     Toolbar,
-    Typography,
-    IconButton
+    Typography
 } from '@material-ui/core';
-import {
-    Menu
-} from '@material-ui/icons';
+
 import CSearchBar from './CSearchBar';
+import CNavlinks from './CNavlinks';
 
 class CNavbar extends Component {
 
@@ -19,12 +17,10 @@ class CNavbar extends Component {
             <div className="app-navbar">
                 <AppBar position="static">
                     <Toolbar className="app-toolbar">
-                        {/* <IconButton className="navbar-icon">
-                            <Menu />
-                        </IconButton> */}
                         <Typography variant="title" color="inherit">
                             Email Client
                         </Typography>
+                        <CNavlinks />
                         <CSearchBar />
                     </Toolbar>
                 </AppBar>
