@@ -47,7 +47,7 @@ app.get('/email', (req, res) => {
     const emailId = req.body.emailId;
 
     if (emailId === undefined) {
-        res.status(500).send("Error: No email id are provided");
+        res.status(500).send("Error: No email id is provided");
     } else {
         dbUtils.getDataFromDatabase(emailId).then(data => {
             res.send(data);
