@@ -22,3 +22,9 @@
 .nav-links {
   margin-left: 2vw;
 }
+
+.app-link {
+  text-decoration: none;
+  color: inherit;
+  margin-right: 1vw;
+}
