@@ -20,6 +20,9 @@ class PEmail extends Component {
     }
 
     render() {
+
+        const { email } = this.state;
+        
         return (
             <div>
                 <CEmail email={email} />
