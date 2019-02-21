@@ -28,7 +28,7 @@ function insertIntoDatabase(emailsToInsert) {
         db.collection(emailCollectionName, function(err, collection) {
 
             emailsToInsert.forEach(email => {
-                collection.insert(email)
+                collection.insert(email);
             });
 
             db.collection(emailCollectionName).count(function (err, count) {
@@ -42,7 +42,36 @@ function insertIntoDatabase(emailsToInsert) {
     });
 }
 
+function getDataFromDatabase(emailId) {
+
+    return new Promise((resolve, reject) => {
+
+        MongoClient.connect(url, function(err, client) {
+
+            if (err) {
+                reject(err);
+            };
+    
+            console.log("Successfully connected to database...");
+
+            const db = client.db(dbName);
+
+            db.collection(emailCollectionName).findOne({id: emailId}, function(err, result) {
+
+                if (err) {
+                    reject(err);
+                }
+
+                resolve(result);
+            })
+    
+            client.close();
+        })
+    });
+}
+
 module.exports = {
     connectDatabase,
-    insertIntoDatabase
+    insertIntoDatabase,
+    getDataFromDatabase
 }

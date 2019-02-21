@@ -19,7 +19,8 @@ app.get('/db', (req, res) => {
 
     const emails = [
         {
-            senderEmail: "francesyu90@yahoo.com",
+            id: 1,
+            email: "francesyu90@yahoo.com",
             title: "Hello World",
             body: "This is a test!"
         }
@@ -39,6 +40,19 @@ app.post('/email', (req, res) => {
     }
 
     dbUtils.insertIntoDatabase(emailsToInsert);
+});
+
+app.get('/email', (req, res) => {
+
+    const emailId = req.body.emailId;
+
+    if (emailId === undefined) {
+        res.status(500).send("Error: No email id are provided");
+    } else {
+        dbUtils.getDataFromDatabase(emailId).then(data => {
+            res.send(data);
+        });
+    }
 })
 
 app.listen(8000, () => {
