@@ -12,6 +12,7 @@ import CNavbar from './components/CNavbar';
 import PInbox from './pages/PInbox';
 import PSentFolder from './pages/PSentFolder';
 import PArchive from './pages/PArchive';
+import PEmail from './pages/PEmail';
 
 class App extends Component {
     render() {
@@ -24,6 +25,7 @@ class App extends Component {
                             <Route exact path="/" component={PInbox} />
                             <Route path="/sent-folder" component={PSentFolder} />
                             <Route path="/archive" component={PArchive} />
+                            <Route path="/emails/:email_id" component={PEmail} />
                         </Switch>
                     </div>
                 </Fragment>
