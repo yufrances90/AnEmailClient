@@ -82,15 +82,15 @@ app.post('/email', (req, res) => {
 
 app.get('/email', (req, res) => {
 
-    const receiver = req.body.email;
+    // const receiver = req.body.email;
 
-    if (receiver === undefined) {
-        res.status(500).send("Error: No user id is provided");
-    } else {
-        dbUtils.getDataFromDatabase(receiver).then(data => {
+    // if (receiver === undefined) {
+    //     res.status(500).send("Error: No user id is provided");
+    // } else {
+        dbUtils.getDataFromDatabase("test@yahoo.com").then(data => {
             res.send(data);
         });
-    }
+    // }
 })
 
 app.listen(8000, () => {

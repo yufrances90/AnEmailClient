@@ -56,16 +56,16 @@ function getDataFromDatabase(receiver) {
 
             const db = client.db(dbName);
 
-            db.collection(emailCollectionName).find({receiver: receiver}, function(err, result) {
+            db.collection(emailCollectionName).find({receiver: receiver}).toArray(function(err, result) {
 
-                if (err) {
-                    reject(err);
-                }
+                if (err) reject(err)
 
                 resolve(result);
-            })
+
+                client.close();
+            });
     
-            client.close();
+            
         })
     });
 }
