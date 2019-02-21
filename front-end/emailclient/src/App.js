@@ -9,6 +9,7 @@ import {
 import './App.css';
 
 import CNavbar from './components/CNavbar';
+import CCreateBtn from './components/CCreateBtn';
 import PInbox from './pages/PInbox';
 import PSentFolder from './pages/PSentFolder';
 import PArchive from './pages/PArchive';
@@ -28,6 +29,7 @@ class App extends Component {
                             <Route path="/emails/:email_id" component={PEmail} />
                         </Switch>
                     </div>
+                    <CCreateBtn />
                 </Fragment>
             </Router>
         );
