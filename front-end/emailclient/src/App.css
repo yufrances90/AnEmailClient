@@ -40,3 +40,9 @@
   bottom: 10vh !important;
   left: 90vw !important;
 }
+
+.submit-btn {
+  position: relative;
+  top: 2vh;
+  left: 45vw;
+}
