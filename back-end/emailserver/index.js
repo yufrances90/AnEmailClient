@@ -49,7 +49,7 @@ app.post('/email', (req, res) => {
             break;
         case "1":
             
-            const emailId = req.body.emailId;
+            let emailId = req.body.emailId;
 
             if (emailId === undefined) {
                 res.status(500).send("Error: No email id is provided!");
@@ -63,7 +63,7 @@ app.post('/email', (req, res) => {
             break;
         case "2": 
             
-            const emailId = req.body.emailId;
+            emailId = req.body.emailId;
 
             if(emailToUpdate === undefined || Object.keys(emailToUpdate).length == 0) {
                 res.send(500).send("Error: No email id is provided!");
