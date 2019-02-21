@@ -42,7 +42,7 @@ function insertIntoDatabase(emailsToInsert) {
     });
 }
 
-function getDataFromDatabase(emailId) {
+function getDataFromDatabase(receiver) {
 
     return new Promise((resolve, reject) => {
 
@@ -56,7 +56,7 @@ function getDataFromDatabase(emailId) {
 
             const db = client.db(dbName);
 
-            db.collection(emailCollectionName).findOne({id: emailId}, function(err, result) {
+            db.collection(emailCollectionName).find({receiver: receiver}, function(err, result) {
 
                 if (err) {
                     reject(err);

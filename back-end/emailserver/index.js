@@ -19,8 +19,8 @@ app.get('/db', (req, res) => {
 
     const emails = [
         {
-            id: 1,
-            email: "francesyu90@yahoo.com",
+            sender: "francesyu90@yahoo.com",
+            receiver: "test@yahoo.com",
             title: "Hello World",
             body: "This is a test!"
         }
@@ -44,12 +44,12 @@ app.post('/email', (req, res) => {
 
 app.get('/email', (req, res) => {
 
-    const emailId = req.body.emailId;
+    const receiver = req.body.email;
 
-    if (emailId === undefined) {
-        res.status(500).send("Error: No email id is provided");
+    if (receiver === undefined) {
+        res.status(500).send("Error: No user id is provided");
     } else {
-        dbUtils.getDataFromDatabase(emailId).then(data => {
+        dbUtils.getDataFromDatabase(receiver).then(data => {
             res.send(data);
         });
     }
