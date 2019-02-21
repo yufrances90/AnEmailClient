@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express();
 const cors = require('cors');
-app.use(cors())
+app.use(cors());
 
 const bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
@@ -21,9 +21,8 @@ app.get('/db', (req, res) => {
 
     const emails = [
         {
-            id: "1",
-            sender: "francesyu90@yahoo.com",
-            receiver: "test@yahoo.com",
+            sender: "test@yahoo.com",
+            receiver: "test@yahoo.ca",
             title: "Hello World",
             body: "This is a test!"
         }
@@ -44,8 +43,11 @@ app.post('/email', (req, res) => {
             if (emailsToInsert === undefined || emailsToInsert.length == 0) {
                 res.status(500).send("Error: No emails are provided!");
             } else {
-                res.send('Saving new emails...');
-                dbUtils.insertIntoDatabase(emailsToInsert);
+
+                console.log('Saving new emails...');
+                dbUtils.insertIntoDatabase(emailsToInsert).then(res => {
+                    console.log(res);
+                });
             }
 
             break;
@@ -84,16 +86,20 @@ app.post('/email', (req, res) => {
 
 app.get('/email', (req, res) => {
 
-    // const receiver = req.body.email;
+    const receiver = req.query.receiver;
+    const sender = req.query.sender;
 
-    // if (receiver === undefined) {
-    //     res.status(500).send("Error: No user id is provided");
-    // } else {
-        dbUtils.getDataFromDatabase("test@yahoo.com").then(data => {
-            res.setHeader("Access-Control-Allow-Origin","*");
+    if (receiver === undefined && sender === undefined) {
+        res.status(500).send("Error: No user id is provided");
+    } else if (receiver === undefined && sender) {
+        dbUtils.getDataFromDatabase(sender, 1).then(data => {
             res.send(data);
         });
-    // }
+    } else {
+        dbUtils.getDataFromDatabase(receiver, 0).then(data => {
+            res.send(data);
+        });
+    }
 })
 
 app.listen(8000, () => {

@@ -5,6 +5,7 @@ import CEmailForm from '../components/CEmailForm';
 import {
     saveNewEmail
 } from '../utils/api';
+import constants from "../utils/constants";
 
 class PCreate extends Component {
 
@@ -26,7 +27,7 @@ class PCreate extends Component {
 
         const obj = {
             receiver: email,
-            sender: "test@yahoo.ca",
+            sender: constants.CURRENT_USER,
             title,
             body
         }

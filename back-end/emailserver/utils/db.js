@@ -17,32 +17,65 @@ function connectDatabase() {
 
 function insertIntoDatabase(emailsToInsert) {
 
-    MongoClient.connect(url, function(err, client) {
+    // MongoClient.connect(url, function(err, client) {
 
-        if (err) throw err;
+    //     if (err) throw err;
 
-        console.log("Successfully connected to database...");
+    //     console.log("Successfully connected to database...");
 
-        const db = client.db(dbName);
+    //     const db = client.db(dbName);
 
-        db.collection(emailCollectionName, function(err, collection) {
+    //     db.collection(emailCollectionName, function(err, collection) {
 
-            emailsToInsert.forEach(email => {
-                collection.insert(email);
-            });
+    //         emailsToInsert.forEach(email => {
+    //             collection.insert(email);
+    //         });
 
-            db.collection(emailCollectionName).count(function (err, count) {
-                if (err) throw err;
+    //         db.collection(emailCollectionName).count(function (err, count) {
+    //             if (err) throw err;
                 
-                console.log('Total Rows: ' + count);
-            });
-        });
+    //             console.log('Total Rows: ' + count);
+    //         });
+    //     });
 
-        client.close();
+    //     client.close();
+    // });
+
+    return new Promise((resolve, reject) => {
+
+        MongoClient.connect(url, function(err, client) {
+
+            if (err) {
+                reject(err);
+            }
+    
+            console.log("Successfully connected to database...");
+    
+            const db = client.db(dbName);
+    
+            db.collection(emailCollectionName, function(err, collection) {
+    
+                emailsToInsert.forEach(email => {
+                    collection.insert(email);
+                });
+    
+                db.collection(emailCollectionName).count(function (err, count) {
+                    if (err) {
+                        reject(err);
+                    }
+
+                    console.log('Total Rows: ' + count);
+
+                    resolve(count);
+                });
+            });
+    
+            client.close();
+        });
     });
 }
 
-function getDataFromDatabase(receiver) {
+function getDataFromDatabase(emailAddress, type) {
 
     return new Promise((resolve, reject) => {
 
@@ -56,9 +89,18 @@ function getDataFromDatabase(receiver) {
 
             const db = client.db(dbName);
 
-            db.collection(emailCollectionName).find({receiver: receiver}).toArray(function(err, result) {
+            const query = (type == 0)? 
+                {
+                    receiver: emailAddress
+                } : {
+                    sender: emailAddress
+                };
+
+            db.collection(emailCollectionName).find(query).toArray(function(err, result) {
 
                 if (err) reject(err)
+
+                console.log(result);
 
                 resolve(result);
 

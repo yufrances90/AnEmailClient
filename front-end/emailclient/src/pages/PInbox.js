@@ -4,7 +4,8 @@ import CEmailList from '../components/CEmailList';
 
 import {
     getEmailsByReceiver
-} from '../utils/api'
+} from '../utils/api';
+import constants from "../utils/constants";
 
 class PInbox extends Component {
 
@@ -13,10 +14,10 @@ class PInbox extends Component {
     }
 
     componentDidMount() {
-        getEmailsByReceiver("").then(data => {
+        getEmailsByReceiver(constants.CURRENT_USER).then(data => {
             this.setState({
                 emails: data
-            })
+            });
         });
     }
 
@@ -28,6 +29,7 @@ class PInbox extends Component {
             <div>
                 <CEmailList
                     emails={emails} 
+                    type={0}
                 />
             </div>
         );

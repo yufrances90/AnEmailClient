@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 class CEmailList extends Component {
     render() {
 
-        const { emails } = this.props;
+        const { emails, type } = this.props;
 
         if (emails.length === 0) {
             return <LinearProgress />
@@ -17,14 +17,14 @@ class CEmailList extends Component {
             <div className="email-list">
                     {
                         emails.map((email) => (
-                            <Grid container key={email.id}>
+                            <Grid container key={email._id}>
                                 <Grid item xs={3}>
-                                    {email.sender} 
+                                    {type == 0? email.sender : email.receiver} 
                                 </Grid>
                                 <Grid item xs={9}>
                                     <Link 
                                         to={{
-                                            pathname: "/emails/:email_id",
+                                            pathname: `/emails/${email._id}`,
                                             state: {
                                                 email
                                             }
