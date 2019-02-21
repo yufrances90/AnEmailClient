@@ -45,8 +45,9 @@ app.post('/email', (req, res) => {
             } else {
 
                 console.log('Saving new emails...');
-                dbUtils.insertIntoDatabase(emailsToInsert).then(res => {
-                    console.log(res);
+                
+                dbUtils.insertIntoDatabase(emailsToInsert).then(result => {
+                    console.log(result);
                 });
             }
 
