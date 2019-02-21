@@ -88,6 +88,7 @@ app.get('/email', (req, res) => {
     //     res.status(500).send("Error: No user id is provided");
     // } else {
         dbUtils.getDataFromDatabase("test@yahoo.com").then(data => {
+            res.setHeader("Access-Control-Allow-Origin","*");
             res.send(data);
         });
     // }
