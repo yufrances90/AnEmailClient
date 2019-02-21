@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
+
 import CEmailForm from '../components/CEmailForm';
+
+import {
+    saveNewEmail
+} from '../utils/api';
 
 class PCreate extends Component {
 
@@ -26,7 +31,14 @@ class PCreate extends Component {
             body
         }
 
-        console.log(obj);
+        const reqObj = {
+            operationType: "0",
+            emailsToInsert: [obj]
+        }
+
+        console.log(reqObj);
+
+        saveNewEmail(reqObj);
     }
 
     render() {
