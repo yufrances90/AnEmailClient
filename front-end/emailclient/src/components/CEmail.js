@@ -10,19 +10,22 @@ import {
 
 class CEmail extends Component {
     render() {
+
+        const { email } = this.props;
+
         return (
             <Grid container>
                 <Grid item xs={4}>
                     <p>
-                        <Email /> francesyu90@yahoo.com
+                        <Email /> {email.sender}
                     </p>
                     <p>
-                        <Title /> Title
+                        <Title /> {email.title}
                     </p>
                 </Grid>
                 <Grid item xs={8}>
                     <p>
-                        body
+                        {email.body}
                     </p>
                 </Grid>
             </Grid>
