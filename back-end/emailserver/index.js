@@ -19,6 +19,7 @@ app.get('/db', (req, res) => {
 
     const emails = [
         {
+            id: "1",
             sender: "francesyu90@yahoo.com",
             receiver: "test@yahoo.com",
             title: "Hello World",
@@ -31,15 +32,52 @@ app.get('/db', (req, res) => {
 
 app.post('/email', (req, res) => {
 
-    const emailsToInsert = req.body.emailsToInsert;
+    const operationType = req.body.operationType; // 0: insert, 1: delete: 2: update(used for archive)
 
-    if (emailsToInsert === undefined || emailsToInsert.length == 0) {
-        res.status(500).send("Error: No emails are provided!");
-    } else {
-        res.send('Saving new emails...');
+    switch(operationType) {
+        case "0": 
+
+            const emailsToInsert = req.body.emailsToInsert;
+
+            if (emailsToInsert === undefined || emailsToInsert.length == 0) {
+                res.status(500).send("Error: No emails are provided!");
+            } else {
+                res.send('Saving new emails...');
+                dbUtils.insertIntoDatabase(emailsToInsert);
+            }
+
+            break;
+        case "1":
+            
+            const emailId = req.body.emailId;
+
+            if (emailId === undefined) {
+                res.status(500).send("Error: No email id is provided!");
+            } else {
+
+                res.send("Deleting email...");
+
+                dbUtils.deleteEmailById(emailId);
+            }
+
+            break;
+        case "2": 
+            
+            const emailId = req.body.emailId;
+
+            if(emailToUpdate === undefined || Object.keys(emailToUpdate).length == 0) {
+                res.send(500).send("Error: No email id is provided!");
+            } else {
+
+                res.send("Updating email...");
+
+                dbUtils.archiveEmailById(emailId);
+            }
+
+            break;
+        default:
+            res.status(500).send("Error: Invalid post operation!")
     }
-
-    dbUtils.insertIntoDatabase(emailsToInsert);
 });
 
 app.get('/email', (req, res) => {

@@ -70,8 +70,55 @@ function getDataFromDatabase(receiver) {
     });
 }
 
+function deleteEmailById(emailId) {
+
+    MongoClient.connect(url, function(err, client) {
+
+        if (err) throw err;
+
+        console.log("Successfully connected to database...");
+
+        const db = client.db(dbName);
+
+        const query = { id: emailId };
+
+        db.collection(emailCollectionName).deleteOne(query, function(err, _) {
+            if (err) throw err;
+            console.log("1 document deleted");
+        });
+
+        client.close()
+    });
+}
+
+function archiveEmailById(emailId) {
+
+    MongoClient.connect(url, function(err, client) {
+
+        if (err) throw err;
+
+        console.log("Successfully connected to database...");
+
+        const db = client.db(dbName);
+
+        const query = { id: emailId };
+        const newvalues = { $set: {isArchive: true} };
+
+        db.collection(emailCollectionName).updateOne(query, newvalues, function(err, result) {
+
+            if (err) throw err;
+            
+            console.log("1 document updated");
+        });
+
+        client.close();
+    });
+}
+
 module.exports = {
     connectDatabase,
     insertIntoDatabase,
-    getDataFromDatabase
+    getDataFromDatabase,
+    deleteEmailById,
+    archiveEmailById
 }
