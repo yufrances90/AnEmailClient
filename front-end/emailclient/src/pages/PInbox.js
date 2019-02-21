@@ -8,14 +8,27 @@ import {
 
 class PInbox extends Component {
 
+    state = {
+        emails: []
+    }
+
     componentDidMount() {
-        getEmailsByReceiver("");
+        getEmailsByReceiver("").then(data => {
+            this.setState({
+                emails: data
+            })
+        });
     }
 
     render() {
+
+        const { emails } = this.state;
+
         return (
             <div>
-                <CEmailList />
+                <CEmailList
+                    emails={emails} 
+                />
             </div>
         );
     }
