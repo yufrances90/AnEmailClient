@@ -19,7 +19,7 @@ class CEmailList extends Component {
                         emails.map((email) => (
                             <Grid container key={email._id}>
                                 <Grid item xs={3}>
-                                    {type == 0? email.sender : email.receiver} 
+                                    {type === 0? email.sender : email.receiver} 
                                 </Grid>
                                 <Grid item xs={9}>
                                     <Link 

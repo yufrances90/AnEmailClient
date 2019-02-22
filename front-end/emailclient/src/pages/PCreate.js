@@ -29,7 +29,8 @@ class PCreate extends Component {
             receiver: email,
             sender: constants.CURRENT_USER,
             title,
-            body
+            body,
+            createdAt: Date.now()
         }
 
         const reqObj = {
