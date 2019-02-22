@@ -1,5 +1,5 @@
 # AnEmailClient
-An email client app using full stack JavaScript
+An email client app with the MERN stack
 
 
 ### To Run Application
