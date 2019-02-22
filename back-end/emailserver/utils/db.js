@@ -1,4 +1,5 @@
 const MongoClient = require('mongodb').MongoClient;
+const ObjectID = require('mongodb').ObjectID;
 
 const url = "mongodb://localhost:27017/";
 const dbName = 'emailDb';
@@ -16,30 +17,6 @@ function connectDatabase() {
 }
 
 function insertIntoDatabase(emailsToInsert) {
-
-    // MongoClient.connect(url, function(err, client) {
-
-    //     if (err) throw err;
-
-    //     console.log("Successfully connected to database...");
-
-    //     const db = client.db(dbName);
-
-    //     db.collection(emailCollectionName, function(err, collection) {
-
-    //         emailsToInsert.forEach(email => {
-    //             collection.insert(email);
-    //         });
-
-    //         db.collection(emailCollectionName).count(function (err, count) {
-    //             if (err) throw err;
-                
-    //             console.log('Total Rows: ' + count);
-    //         });
-    //     });
-
-    //     client.close();
-    // });
 
     return new Promise((resolve, reject) => {
 
@@ -122,11 +99,11 @@ function deleteEmailById(emailId) {
 
         const db = client.db(dbName);
 
-        const query = { id: emailId };
+        const query = { _id: ObjectID(emailId) };
 
-        db.collection(emailCollectionName).deleteOne(query, function(err, _) {
+        db.collection(emailCollectionName).deleteOne(query, function(err, result) {
             if (err) throw err;
-            console.log("1 document deleted");
+            console.log("1 document deleted", result);
         });
 
         client.close()
@@ -143,7 +120,7 @@ function archiveEmailById(emailId) {
 
         const db = client.db(dbName);
 
-        const query = { id: emailId };
+        const query = { _id: ObjectID(emailId) };
         const newvalues = { $set: {isArchive: true} };
 
         db.collection(emailCollectionName).updateOne(query, newvalues, function(err, result) {
