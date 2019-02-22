@@ -66,12 +66,35 @@ function getDataFromDatabase(emailAddress, type) {
 
             const db = client.db(dbName);
 
-            const query = (type == 0)? 
-                {
-                    receiver: emailAddress
-                } : {
-                    sender: emailAddress
-                };
+            let query = {};
+
+            switch(type) {
+                case 0: 
+                    query = {
+                        receiver: emailAddress,
+                        isArchived: {
+                            $exists: false
+                        }
+                    };
+                    break;
+                case 1:
+                    query = {
+                        sender: emailAddress,
+                        isArchived: {
+                            $exists: false
+                        }
+                    }
+                    break;
+                case 2: 
+                    query = {
+                        $and : [
+                            { $or : [ { sender: emailAddress }, { receiver: emailAddress } ] },
+                            { isArchived: true }
+                        ]
+                    }
+                    break;
+                default: break;
+            }
 
             db.collection(emailCollectionName).find(query).toArray(function(err, result) {
 
