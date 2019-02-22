@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 
 import CEmail from '../components/CEmail';
 
+import {
+    deleteEmailById,
+    archiveEmailById
+} from '../utils/api';
+
 class PEmail extends Component {
 
     state = {
@@ -23,14 +28,28 @@ class PEmail extends Component {
         
         const emailId = event.currentTarget.id;
 
-        console.log(emailId);
+        const reqObj = {
+            operationType: "1",
+            emailId
+        }
+
+        console.log(reqObj);
+
+        deleteEmailById(reqObj);
     }
 
     handleArchiveEmail(event) {
 
         const emailId = event.currentTarget.id;
 
-        console.log(emailId);
+        const reqObj = {
+            operationType: "2",
+            emailId
+        }
+
+        console.log(reqObj);
+
+        archiveEmailById(reqObj);
     }
 
     render() {

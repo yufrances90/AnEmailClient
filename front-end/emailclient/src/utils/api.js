@@ -6,28 +6,40 @@ export async function getEmailsByReceiver(receiver) {
 
     const response = await axios.get(`${url}/?receiver=${receiver}`)
 
-    if (response.status === 200) {
-        return response.data
-    } else {
-        return undefined
-    }
+    return getEmailsHelper(response);
 }
 
 export async function getEmailsBySender(sender) {
 
     const response = await axios.get(`${url}/?sender=${sender}`)
 
-    if (response.status === 200) {
-        return response.data
-    } else {
-        return undefined
-    }
+    return getEmailsHelper(response);
 }
 
 export async function saveNewEmail(object) {
+    sendPostRequest(object);
+}
+
+export async function deleteEmailById(object) {
+    sendPostRequest(object);
+}
+
+export async function archiveEmailById(object) {
+    sendPostRequest(object);
+}
+
+function getEmailsHelper(response) {
+
+    if (response.status === 200) {
+        return response.data;
+    } else {
+        return undefined;
+    }
+}
+
+async function sendPostRequest(object) {
 
     const response = await axios.post(url, object);
 
     console.log(response);
 }
-
