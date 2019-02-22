@@ -89,10 +89,27 @@ app.get('/email', (req, res) => {
 
     const receiver = req.query.receiver;
     const sender = req.query.sender;
+    const user = req.query.user;
 
-    if (receiver === undefined && sender === undefined) {
+    if (
+        receiver === undefined && 
+        sender === undefined &&
+        user === undefined
+    ) {
         res.status(500).send("Error: No user id is provided");
-    } else if (receiver === undefined && sender) {
+    } else if (
+        receiver === undefined &&
+        sender === undefined &&
+        user
+    ){
+        dbUtils.getDataFromDatabase(user, 2).then(data => {
+            res.send(data);
+        });
+    } else if (
+        receiver === undefined && 
+        sender &&
+        user === undefined
+    ) {
         dbUtils.getDataFromDatabase(sender, 1).then(data => {
             res.send(data);
         });

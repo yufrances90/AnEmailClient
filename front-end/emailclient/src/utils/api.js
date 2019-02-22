@@ -16,6 +16,13 @@ export async function getEmailsBySender(sender) {
     return getEmailsHelper(response);
 }
 
+export async function getArchivedEmails(user) {
+
+    const response = await axios.get(`${url}/?user=${user}`)
+
+    return getEmailsHelper(response);
+}
+
 export async function saveNewEmail(object) {
     sendPostRequest(object);
 }
