@@ -13,11 +13,18 @@ class PSentFolder extends Component {
         emails: []
     }
 
+    _isMounted = true;
+
     componentDidMount() {
+
+        const { query } = this.props;
+
         getEmailsBySender(constants.CURRENT_USER).then(data => {
-            this.setState({
-                emails: data
-            });
+            if(this._isMounted) {
+                this.setState({
+                    emails: (query.length === 0)? data: data.filter(obj => obj.sender === query)
+                });
+            }
         });
     }
 
@@ -29,10 +36,14 @@ class PSentFolder extends Component {
             <div>
                 <CEmailList
                     emails={emails}
-                    type={1} 
+                    type={1}
                 />
             </div>
         );
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false;
     }
 }
 

@@ -13,11 +13,18 @@ class PInbox extends Component {
         emails: []
     }
 
+    _isMounted = true;
+
     componentDidMount() {
+
+        const { query } = this.props;
+
         getEmailsByReceiver(constants.CURRENT_USER).then(data => {
-            this.setState({
-                emails: data
-            });
+            if(this._isMounted) {
+                this.setState({
+                    emails: (query.length === 0)? data: data.filter(obj => obj.sender === query)
+                });
+            }
         });
     }
 
@@ -28,11 +35,15 @@ class PInbox extends Component {
         return (
             <div>
                 <CEmailList
-                    emails={emails} 
+                    emails={emails}
                     type={0}
                 />
             </div>
         );
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false;
     }
 }
 

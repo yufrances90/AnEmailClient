@@ -13,6 +13,8 @@ class CNavbar extends Component {
 
     render() {
 
+        const { handleChangeEmail, query } = this.props;
+
         return (
             <div className="app-navbar">
                 <AppBar position="static">
@@ -21,7 +23,10 @@ class CNavbar extends Component {
                             Email Client
                         </Typography>
                         <CNavlinks />
-                        <CSearchBar />
+                        <CSearchBar 
+                            handleChangeEmail={handleChangeEmail}
+                            query={query}
+                        />
                     </Toolbar>
                 </AppBar>
             </div>

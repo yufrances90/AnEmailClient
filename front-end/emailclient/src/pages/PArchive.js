@@ -13,11 +13,18 @@ class PArchive extends Component {
         emails: []
     }
 
+    _isMounted = true;
+
     componentDidMount() {
+
+        const { query } = this.props;
+
         getArchivedEmails(constants.CURRENT_USER).then(data => {
-            this.setState({
-                emails: data
-            });
+            if(this._isMounted) {
+                this.setState({
+                    emails: (query.length === 0)? data: data.filter(obj => obj.sender === query)
+                });
+            }
         });
     }
 
@@ -29,10 +36,14 @@ class PArchive extends Component {
             <div>
                 <CEmailList
                     emails={emails} 
-                    type={0}
+                    type={2}
                 />
             </div>
         );
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false;
     }
 }
 

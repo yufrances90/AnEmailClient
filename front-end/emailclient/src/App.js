@@ -17,16 +17,43 @@ import PEmail from './pages/PEmail';
 import PCreate from './pages/PCreate';
 
 class App extends Component {
+
+    state = {
+        query: ""
+    }
+
+    handleChangeEmail(event) {
+        this.setState({
+            query: event.currentTarget.value
+        });
+    }
+
     render() {
+
+        const { query } = this.state;
+
         return (
             <Router>
                 <Fragment>
-                    <CNavbar />
+                    <CNavbar 
+                        handleChangeEmail={this.handleChangeEmail.bind(this)}
+                        query={query}
+                    />
                     <div className="app-body">
                         <Switch>
-                            <Route exact path="/" component={PInbox} />
-                            <Route path="/sent-folder" component={PSentFolder} />
-                            <Route path="/archive" component={PArchive} />
+                            <Route 
+                                exact 
+                                path="/" 
+                                component={() => <PInbox query={query} />}
+                            />
+                            <Route 
+                                path="/sent-folder" 
+                                component={() => <PSentFolder query={query} />}
+                            />
+                            <Route 
+                                path="/archive" 
+                                component={() => <PArchive query={query} />}
+                            />
                             <Route path="/emails/:email_id" component={PEmail} />
                             <Route path="/create" component={PCreate} />
                         </Switch>
