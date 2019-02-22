@@ -121,7 +121,7 @@ function archiveEmailById(emailId) {
         const db = client.db(dbName);
 
         const query = { _id: ObjectID(emailId) };
-        const newvalues = { $set: {isArchive: true} };
+        const newvalues = { $set: {isArchived: true} };
 
         db.collection(emailCollectionName).updateOne(query, newvalues, function(err, result) {
 

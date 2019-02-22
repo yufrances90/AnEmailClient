@@ -54,29 +54,29 @@ app.post('/email', (req, res) => {
             break;
         case "1":
             
-            let emailId = req.body.emailId;
+            const emailIdToDelete = req.body.emailId;
 
-            if (emailId === undefined) {
+            if (emailIdToDelete === undefined) {
                 res.status(500).send("Error: No email id is provided!");
             } else {
 
                 res.send("Deleting email...");
 
-                dbUtils.deleteEmailById(emailId);
+                dbUtils.deleteEmailById(emailIdToDelete);
             }
 
             break;
         case "2": 
-            
-            emailId = req.body.emailId;
 
-            if(emailToUpdate === undefined || Object.keys(emailToUpdate).length == 0) {
+            const emailIdToArchive = req.body.emailId;
+
+            if(emailIdToArchive === undefined) {
                 res.send(500).send("Error: No email id is provided!");
             } else {
 
-                res.send("Updating email...");
+                res.send("Archiving email...");
 
-                dbUtils.archiveEmailById(emailId);
+                dbUtils.archiveEmailById(emailIdToArchive);
             }
 
             break;
