@@ -19,13 +19,31 @@ class PEmail extends Component {
         });
     }
 
+    handleDeleteEmail(event) {
+        
+        const emailId = event.currentTarget.id;
+
+        console.log(emailId);
+    }
+
+    handleArchiveEmail(event) {
+
+        const emailId = event.currentTarget.id;
+
+        console.log(emailId);
+    }
+
     render() {
 
         const { email } = this.state;
         
         return (
             <div>
-                <CEmail email={email} />
+                <CEmail 
+                    email={email}
+                    handleDeleteEmail={this.handleDeleteEmail.bind(this)} 
+                    handleArchiveEmail={this.handleArchiveEmail.bind(this)}
+                />
             </div>
         );
     }
